@@ -41,3 +41,7 @@ While I am a Ruby on Rails programmer by trade, Python makes much more sense in 
 The web app is HTML5, CSS3 and uses a whole lot of stuff that only works in new browsers. No, I'm not going to make it work on IE6 or 7 - IE 8 will probably work, as will IE 9. I'll test against the latest Firefox (probably version 3243 by the time you read this), Safari and Chrome (more often on OSX than Windows, rarely on Linux - if you find an issue let me know, and I'll find an Ubuntu box or something).
 
 Since the browser is doing the work, I'm using backbone.js, and history.js to some nice pushStats URLs. I'm also using jQuery.tmpl for templating. If you have been doing any serious web development recently, you should be sweet.
+
+## License 
+
+It's MIT: See LICENSE. MythTV is GPL 2. Whatever.
