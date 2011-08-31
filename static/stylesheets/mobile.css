@@ -1,0 +1,448 @@
+body {
+  background-color: #aaa;
+  font-family: "HelveticaNeue";
+  font-size: 16px;
+  color: #FFFFFF;
+  margin: 0;
+  padding: 0;
+}
+
+.stack {
+  position: absolute;
+  top: 0px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: none;
+  background-color: #202020; 
+}
+
+.stack.current {
+  display: block; 
+}
+
+.page {
+  display: none;
+  background-color: #202020; 
+  width: 100%;
+  overflow-x: hidden;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+  
+.page.current, .page.in, .page.out {
+  display: block; 
+}
+
+.page header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 48px;
+  line-height: 48px;
+  font-size: 19px;
+  text-align: center;
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#2E2E2E), to(#040404), color-stop(.5,#3A3A3A),color-stop(.5,#292929));
+  -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.45);
+  z-index: 1;
+}
+
+.page section {
+  z-index: 0;
+  margin-top: 48px;
+}
+
+.page section ul li {
+  position: relative;
+  height: 90px;
+  margin-bottom: 1px;
+}
+
+#recordings .page section ul li > div {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 3px 16px;
+}
+
+.csstransforms3d #recordings .page section ul li.show-options div.details {
+  -webkit-transform: translateX(100%);
+}
+
+.no-csstransforms3d #recordings .page section ul li.show-options div.details {
+  left: 100%;
+}
+
+#pull-down {
+  position: absolute;
+  height: 52px;
+  top: 48px;
+  z-index: 2;
+  background-color: #000;
+  background-image: url(/static/images/mobile/options-background.png);
+  background-repeat: both;
+  background-position: top left;
+  width: 100%;
+  display: none;
+}
+
+#pull-down ul li {
+  position: relative;
+  display: inline-block;
+  width: 20%;
+  height: 48px;
+  overflow: hidden;
+  text-align: center;
+}
+
+#pull-down ul li a {
+  position: absolute;
+  display: block;
+  width: 100%;
+  color: #fff;
+  text-decoration: none;
+  font-size: 10px;
+  text-align: center;
+  left: 50%;
+  margin-left: -50%;
+  top: 4px;
+  margin-top: 32px;
+}
+
+#pull-down ul li a:before {
+  position: absolute;
+  display: block;
+  content: url(/static/images/mobile/icon-70-tv.png);
+  display: inline;
+  margin: 0 auto;
+  left: 50%;
+  width: 24px;
+  top: 4px;
+  margin-left: -12px;
+  margin-top: -32px;
+}
+
+
+/* Recordings */
+#recordings .page section > h2 {
+  line-height: 1.5em;
+  padding: 0.25em 0.5em;
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#2E2E2E), to(#040404), color-stop(.5,#3A3A3A),color-stop(.5,#292929));
+}
+
+#recordings .page section ul li div.details {
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#525252), to(#444444));
+  background-color: #484848;
+  border-top: 1px solid #656565;
+  border-bottom: 1px solid #393939;
+}
+
+#recordings .page section ul li div.details img {
+  position: absolute;
+  top: 9px;
+  right: 8px;
+  left: 8px;
+  border: 1px solid #303030;
+}
+
+#recordings .page section ul li div.details h2 {
+  position: absolute;
+  font-size: 19px;
+  font-weight: bold;
+  line-height: 22px;
+  height: 24px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  top: 8px;
+  left: 108px;
+  right: 8px;
+  text-shadow: rgba(0, 0, 0, 0.5) 1px 1px 0px;
+  -webkit-text-shadow: rgba(0, 0, 0, 0.5) 1px 1px 0;
+}
+
+#recordings .page section ul li div.details p {
+  position: absolute;
+  font-size: 12px;
+  line-height: 16px;
+  height: 48px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  top: 30px;
+  left: 108px;
+  right: 8px;
+  text-shadow: rgba(0, 0, 0, 0.5) 1px 1px 0px;
+  -webkit-text-shadow: rgba(0, 0, 0, 0.5) 1px 1px 0;
+}
+
+#recordings .page section ul li div.details div.meta {
+  position: absolute;
+  font-size: 10px;
+  line-height: 16px;
+  height: 32px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  top: 66px;
+  left: 8px;
+  width: 88px;
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+#recordings .page section ul li div.options {
+  background-image: url(/static/images/mobile/options-background.png);
+  background-repeat: repeat-x;
+  background-position: top left;
+}
+
+#recordings .page section div.options a {
+  position: absolute;
+  display: block;
+  float: left;
+  width: 0;
+  height: 48px;
+  padding-left: 48px;
+  overflow: hidden;
+  background-image: url(/static/images/mobile/option-button-background.png);
+  background-repeat: no-repeat;
+  background-position: center center;
+  top: 50%;
+  margin-top: -24px;
+}
+
+#recordings .page section div.options a[href="#delete"] {
+  background-image: url(/static/images/mobile/options-delete.png);
+  left: 20%;
+  margin-left: -24px;
+}
+
+#recordings .page section div.options a[href="#delete-rerecord"] {
+  background-image: url(/static/images/mobile/options-delete-rerecord.png);
+  left: 40%;
+  margin-left: -24px;
+}
+
+#recordings .page section div.options a[href="#play"] {
+  background-image: url(/static/images/mobile/options-play.png);
+  left: 60%;
+  margin-left: -24px;
+}
+
+#recordings .page section div.options a[href="#autoexpire"] {
+  background-image: url(/static/images/mobile/options-autoexpire.png);
+  left: 80%;
+  margin-left: -24px;
+}
+
+#recordings-show {
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#525252), to(#444444));
+  background-color: #484848;
+}
+
+#recordings-show .content {
+  padding: 8px;
+}
+
+#recordings-show .channel {
+  float: right;
+  overflow: hidden;
+  width: 80px;
+  height: 80px;
+  margin-left: 8px;
+}
+
+#recordings-show .channel .time {
+  display: block;
+  font-size: 10px;
+  text-align: center;
+}
+
+#recordings-show .channel img {
+  border: 1px solid #aaa;
+}
+
+#recordings-show p {
+  font-size: 12px;
+  line-height: 16px;
+}
+
+#recordings-show table {
+  font-size: 12px;
+  line-height: 16px;
+  width: 100%;
+}
+
+#recordings-show table th {
+  font-style: normal;
+  text-align: left;
+  width: 33%;
+}
+
+#recordings-show table td {
+  width; 66%;
+}
+
+#recordings-show div.meta {
+  height: 64px;
+  position: relative;
+}
+
+/* Remote Control */
+#remote-index {
+  height: 47em;
+}
+
+#remote-index a {
+  position: absolute;
+  border: 1px solid #0b0b10;
+  display: inline-block;
+  width: 4em;
+  height: 4em;
+  line-height: 4em;
+  margin-left: -2em;
+  -webkit-border-radius: 8px;
+  background-color: #1c211e;
+  color: #ccc;
+  text-align: center;
+  text-decoration: none;
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#414142), to(#1f1f1f));
+  -webkit-box-shadow: 1px 0 0 #000000;
+}
+
+#remote-index a[href='#m'] {
+  top: 4em;
+  left: 2em;
+  width: 9em;
+}
+
+#remote-index a[href='#i'] {
+  top: 4em;
+  left: 12em;
+}
+
+#remote-index a[href='#escape'] {
+  top: 4em;
+  left: 17em;
+}
+
+#remote-index a[href='#enter'] {
+  top: 14em;
+  left: 7em;
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#767676), to(#4a4a4b));
+  font-weight: bold;
+}
+
+#remote-index a[href='#up'] {
+  top: 9em;
+  left: 7em;
+}
+
+#remote-index a[href='#left'] {
+  top: 14em;
+  left: 2em;
+}
+
+#remote-index a[href='#right'] {
+  top: 14em;
+  left: 12em;
+}
+
+#remote-index a[href='#down'] {
+  top: 19em;
+  left: 7em;
+}
+
+#remote-index a[href='#]'] {
+  top: 9em;
+  left: 17em;
+}
+
+#remote-index a[href='#['] {
+  top: 14em;
+  left: 17em;
+}
+
+#remote-index a[href='#f9'] {
+  top: 19em;
+  left: 17em;
+}
+
+
+#remote-index a[href='#pagedown'] {
+  top: 24em;
+  left: 2em;
+}
+
+#remote-index a[href='#r'] {
+  top: 24em;
+  left: 7em;
+}
+
+#remote-index a[href='#p'] {
+  top: 24em;
+  left: 12em;
+}
+
+#remote-index a[href='#pageup'] {
+  top: 24em;
+  left: 17em;
+}
+
+#remote-index a[href='#1'] {
+  top: 32em;
+  left: 2em;
+}
+
+#remote-index a[href='#2'] {
+  top: 32em;
+  left: 7em;
+}
+
+#remote-index a[href='#3'] {
+  top: 32em;
+  left: 12em;
+}
+
+#remote-index a[href='#4'] {
+  top: 37em;
+  left: 2em;
+}
+
+#remote-index a[href='#5'] {
+  top: 37em;
+  left: 7em;
+}
+
+#remote-index a[href='#6'] {
+  top: 37em;
+  left: 12em;
+}
+
+#remote-index a[href='#7'] {
+  top: 42em;
+  left: 2em;
+}
+
+#remote-index a[href='#8'] {
+  top: 42em;
+  left: 7em;
+}
+
+#remote-index a[href='#9'] {
+  top: 42em;
+  left: 12em;
+}
+
+#remote-index a[href='#0'] {
+  top: 37em;
+  left: 17em;
+  height: 9em;
+  line-height: 9em;
+}

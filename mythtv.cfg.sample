@@ -1,0 +1,5 @@
+[Database]
+hostname = localhost
+name = mythconverg
+username = mythconverg
+password = mythconverg

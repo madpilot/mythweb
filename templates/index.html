@@ -1,0 +1,183 @@
+<!doctype HTML>
+<html>
+  <head>
+    <title>MythTV</title>
+    <link rel="stylesheet" href="/static/stylesheets/reset.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="/static/stylesheets/transitions.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="/static/stylesheets/mobile.css" type="text/css" media="all" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    
+    <link rel="apple-touch-icon" sizes="57x57" href="/static/images/mobile/apple-touch-icon-57x57.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="/static/images/mobile/apple-touch-icon-114x114.png"/>
+    <link rel="apple-touch-icon" href="/static/images/mobie/apple-touch-icon.png">
+
+    <script type="text/javascript" src="/static/javascripts/modernizr.js"></script>
+    <script type="text/javascript" src="/static/javascripts/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/javascripts/history.adapter.jquery.min.js"></script>
+    <script type="text/javascript" src="/static/javascripts/history.min.js"></script>
+    <script type="text/javascript" src="/static/javascripts/jquery.tmpl.min.js"></script>
+    <script type="text/javascript" src="/static/javascripts/jquery.swipeable.js"></script>
+    <script type="text/javascript" src="/static/javascripts/underscore.min.js"></script>
+    <script type="text/javascript" src="/static/javascripts/backbone.min.js"></script>
+    <script typt="text/javascript" src="/static/javascripts/utilities.js"></script>
+
+    <script type="text/javascript" src="/static/javascripts/routes/remote_route.js"></script>
+    <script type="text/javascript" src="/static/javascripts/routes/recordings_route.js"></script>
+    
+    <script type="text/javascript" src="/static/javascripts/models/program.js"></script>
+
+    <script type="text/javascript" src="/static/javascripts/views/keyboards/remote.js"></script>
+
+    <script type="text/javascript" src="/static/javascripts/views/recordings/index.js"></script>
+    <script type="text/javascript" src="/static/javascripts/views/recordings/show.js"></script>
+    
+    <script type="text/javascript" src="/static/javascripts/application.js"></script>
+  </head>
+  <body>
+    <div id="pull-down">
+      <ul>
+        <li><a href="/remote" rel="#remote">Remote</a></li>
+        <li><a href="/recordings" rel="#recordings">Recordings</a></li>
+        <li><a href="/listings" rel="#listings">Listings</a></li>
+      </ul>
+    </div>
+
+    </div>
+    <div id="recordings" class="stack">
+      <div id="recordings-index" class="page">
+        <header>
+          <h1>Recordings</h1>
+        </header>
+        <section></section>
+      </div>
+      <div id="recordings-show" class="page">
+        <header>
+          <h1>Recording</h1>
+        </header>
+        <section></section>
+      </div>
+    </div>
+    <div id="remote" class="stack">
+      <div id="remote-index" class="page">
+        <header>
+          <h1>Remote</h1>
+        </header>
+        <section></section>
+      </div>
+    </div>
+
+    <!-- Templates -->
+    <script type="text/x-jquery-tmpl" id="mobile-recordings-template">
+      {{each(datestr, group) $data}}
+        <h2>${datestr}</h2>
+        <ul>
+          {{each group}}
+            <li id="${id}">>
+              <div class="options">
+                <a href="#delete">Delete</a> 
+                <a href="#delete-rerecord">Delete and Re-record</a> 
+                <a href="#play">Play</a> 
+                <a href="#autoexpire">Auto Expire</a>
+              </div>
+              <div class="details">
+                <h2>${title}</h2>
+                <img src="/programs/${id.replace('_', '/')}/image.jpg?width=88&amp;height=50" alt="" width="88" height="50">
+                <p>
+                  {{if subtitle}}
+                    ${subtitle}:
+                  {{/if}}
+                  ${description}
+                </p>
+                <div class="meta">
+                  <span class="channel">${channame}</span>
+                  |
+                  <span class="time">${Math.round((recendts.getTime() - recstartts.getTime()) / 60000)} mins</span>
+                </div>
+              </div>
+            </li>
+          {{/each}}
+        </ul>
+      {{/each}}
+    </script>
+
+    <script type="text/x-jquery-tmpl" id="mobile-recording-template">
+      <div class="content">
+        <div class="channel">
+          <img src="/channel/${chanid}/image.png?width=80&amp;height=60" alt="${channame}">
+          <span class="time">${Math.round((recendts.getTime() - recstartts.getTime()) / 60000)} mins</span>
+        </div>
+        <p>
+          {{if subtitle}}
+            ${subtitle}:
+          {{/if}}
+          ${description}
+        </p>
+      </div>
+      <img src="/programs/${id.replace('_', '/')}/image.jpg?width=${window.innerWidth}&amp;height=${Math.floor(window.innerWidth*9/16)}" alt="" width="${window.innerWidth}" height="${Math.floor(window.innerWidth*9/16)}">
+      <div class="content">
+        <table>
+          <tbody>
+            <tr>
+              <th>File Size</th>
+              <td>${human_size(filesize, 2)}</td>
+            </tr>
+            <tr>
+              <th>Playback Group</th>
+              <td>${playgroup}</td>
+            </tr>
+            <tr>
+              <th>Storage Group</th>
+              <td>${storagegroup}</td>
+            </tr>
+          </tbody>
+        </table>
+     </div>
+      <div class="meta">
+        <div class="options">
+          <a href="#delete">Delete</a> 
+          <a href="#delete-rerecord">Delete and Re-record</a> 
+          <a href="#play">Play</a> 
+          <a href="#autoexpire">Auto Expire</a>
+       </div>
+     </div>
+    </script>
+
+    <script type="text/x-jquery-tmpl" id="mobile-remote-template">
+      <div id="remote-default" class="panel keyboard">
+        <a href="#enter">Ok</a>
+        <a href="#escape">Esc</a>
+        <a href="#m">Menu</a>
+        <a href="#i">Info</a>
+
+        <a href="#up">Up</a>
+        <a href="#right">Right</a>
+        <a href="#down">Down</a>
+        <a href="#left">Left</a>
+
+        <a href="#[">Vol-</a>
+        <a href="#]">Vol+</a>
+        <a href="#f9">Mute</a>
+
+        <a href="#p">Play</a>
+        <a href="#r">Rec</a>
+        <a href="#pagedown">Rew</a>
+        <a href="#pageup">Fwd</a>
+
+        <a href="#1">1</a>
+        <a href="#2">2</a>
+        <a href="#3">3</a>
+        <a href="#4">4</a>
+        <a href="#5">5</a>
+        <a href="#6">6</a>
+        <a href="#7">7</a>
+        <a href="#8">8</a>
+        <a href="#9">9</a>
+        <a href="#0">0</a>
+      </div>
+    </script>
+  </body>
+</html>

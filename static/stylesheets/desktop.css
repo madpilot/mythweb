@@ -1,0 +1,14 @@
+#remote a {
+  border: 1px solid #67666f;
+  display: inline-block;
+  width: 5em;
+  height: 5em;
+  line-height: 5em;
+  -webkit-border-radius: 8px;
+  background-color: #fff;
+  color: #333;
+  text-align: center;
+  text-decoration: none;
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#eeeef0), to(#d3d3da));
+  -webkit-box-shadow: 1px 0 0 #000000
+}
