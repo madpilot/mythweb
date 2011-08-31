@@ -1,38 +1,38 @@
-h1. MythWeb Reloaded
+# MythWeb Reloaded
 
 The original MythWeb plugin for MythTV was a set of PHP and PERL scripts that allow users to view recordings, create recordings, update options and stream flash version of TV shows via a browser. While it works pretty well, I have had a couple of problems with it:
 
-# Requiring Apache or even Lighttpd seems like complete overkill for a website that will only ever be accessed by a couple of people
-# The mobile version is so limited, that it's unusable.
-# Creating recordings is difficult - there are so many options, it can be over-whelming
-# It has a lot of geek oriented cruft. It needs a bit of UI and UX tender loving care
-# The music and video browsers down't work with large libraries; and
-# It's ugly.
+* Requiring Apache or even Lighttpd seems like complete overkill for a website that will only ever be accessed by a couple of people
+* The mobile version is so limited, that it's unusable.
+* Creating recordings is difficult - there are so many options, it can be over-whelming
+* It has a lot of geek oriented cruft. It needs a bit of UI and UX tender loving care
+* The music and video browsers down't work with large libraries; and
+* It's ugly.
 
 The point of this re-write is to address these issues.
 
-h2 Design Brief
+## Design Brief
 
-# Should not rely on PHP or Apache or Lighttpd
-# Should work on mobiles, tablets and web browsers
-# The UI should be as simple as required (But no more)
-# It should look good.
+* Should not rely on PHP or Apache or Lighttpd
+* Should work on mobiles, tablets and web browsers
+* The UI should be as simple as required (But no more)
+* It should look good.
 
-h2. Status
+## Status
 
 So far, I've only started the mobile interface (tested mainly on iOS - I'm still waiting for the Android emulator to boot up), and only implemented the remote and recordings. There is still heaps of stuff missing, so give me some time - or better yet get forking. Just remember the brief.
 
-h2. Getting started
+## Getting started
 
-# Clone this repo
-# Copy mythtv.cfg.sample to mythtv.cfg
-# Change the database settings in mythtv.cfg
-# python app.py
-# Point your browser http://[ip_address]:4567 - replace the ip_address with the ip of your mythbox.
+1. Clone this repo
+2. Copy mythtv.cfg.sample to mythtv.cfg
+3. Change the database settings in mythtv.cfg
+4. python app.py
+5. Point your browser http://[ip_address]:4567 - replace the ip_address with the ip of your mythbox.
 
 Make sure you have compiled the MythTV Python bindings!
 
-h2. Design rationale
+## Design rationale
 
 Building this is in PHP is a non-starter. For starters, it has no built in webserver so it relies on an external server, like Apache. Also, PHP is an ugly, ugly language, and if you create new websites in it now, you are doing it wrong. A Ruby or Python based framework makes much more sense, as we can use Rack or WSGI to serve up the site.
 
