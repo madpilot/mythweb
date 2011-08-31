@@ -45,7 +45,7 @@ Since the browser is doing the work, I'm using backbone.js, and history.js to so
 ## Screenshots (So far)
 
 ![Recordings Home Screen](http://dl.dropbox.com/u/26498/mythweb/screenshots/recordings.png)
-![Remote](http://dl.dropbox.com/u/26498/mythweb/screenshots/recordings.png)
+![Remote](http://dl.dropbox.com/u/26498/mythweb/screenshots/remote.png)
 
 ## License 
 
