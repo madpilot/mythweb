@@ -21,8 +21,17 @@ def search_for_frontends():
   global mythtv_frontends
   # TODO: May need to wrap this in mutex lock or something, in case a web query comes through as the array is updated...
   mythtv_frontends = []
-  for fe in MythTV.Frontend.fromUPNP():
-    mythtv_frontends.append(fe)
+ 
+  fes = MythTV.Frontend.fromUPNP()
+  while(True):
+    try:
+      mythtv_frontends.append(fes.next())
+    except MythTV.exceptions.MythFEError:
+      # If we can't connect to the frontend, just ignore - it's probably not set up for remote access
+      pass
+    except StopIteration:
+      break
+  
   #threading.Timer(60, search_for_frontends).start()
 
 search_for_frontends()
