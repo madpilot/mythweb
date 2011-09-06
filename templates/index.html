@@ -104,6 +104,30 @@
       {{/each}}
     </script>
 
+    <script type="text/x-jquery-tmpl" id="mobile-recording-item-template">
+      <div class="options">
+        <a href="#delete">Delete</a> 
+        <a href="#delete-rerecord">Delete and Re-record</a> 
+        <a href="#play">Play</a> 
+        <a href="#autoexpire">Auto Expire</a>
+      </div>
+      <div class="details">
+        <h2>${title}</h2>
+        <img src="/programs/${id.replace('_', '/')}/image.jpg?width=88&amp;height=50" alt="" width="88" height="50">
+        <p>
+          {{if subtitle}}
+            ${subtitle}:
+          {{/if}}
+          ${description}
+        </p>
+        <div class="meta">
+          <span class="channel">${channame}</span>
+          |
+          <span class="time">${Math.round((recendts.getTime() - recstartts.getTime()) / 60000)} mins</span>
+        </div>
+      </div>
+    </script>
+
     <script type="text/x-jquery-tmpl" id="mobile-recording-template">
       <div class="content">
         <div class="channel">

@@ -90,6 +90,15 @@ def programs_play(chanid, airdate):
   mythtv_frontends[0].play(recording)
   return ''
 
+@app.route('/programs/<chanid>/<airdate>.json', methods=['DELETE'])
+def programs_delete(chanid, airdate):
+  rerecord = False
+  if request.args.has_key('rerecord'):
+    rerecord = True if request.args['rerecord'] == 'true' else 'false'
+  recording = mythtv_backend.getRecording(chanid, airdate)
+  recording.delete(force=False,rerecord=rerecord)
+  return ''
+
 # Frontends
 @app.route('/frontends.json')
 def frontends():
