@@ -29,11 +29,17 @@ var RecordingsRouter = Backbone.Router.extend({
   },
 
   show: function(chanid, timestamp) {
-    console.log(this.lastFetch);
-
     if(this.lastFetch === null) {
-
+      var recordings = new Recordings();
+      var context = this;
+    
+      recordings.fetch({
+        success: function(collection) {
+          context.lastFetch = collection;
+        }
+      });
     }
+    
     var model = this.lastFetch.get(chanid + "_" + timestamp);
     var recordingView = new RecordingView({
       el: '#recordings-show section',
