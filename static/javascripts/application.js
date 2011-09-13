@@ -32,7 +32,6 @@ var PageStack = function() {
       return;
     }
  
-    console.log(options.animation + " in " + options.direction);
     toPage
       .css('z-index', 10)
       .addClass(toClass)
