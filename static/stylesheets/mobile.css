@@ -23,13 +23,13 @@ body {
 }
 
 .page {
+  position: absolute;
   display: none;
   background-color: #202020; 
   width: 100%;
   overflow-x: hidden;
   top: 0;
   right: 0;
-  bottom: 0;
   left: 0;
 }
   

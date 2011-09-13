@@ -62,7 +62,7 @@ var RecordingViewItem = Backbone.View.extend({
   showDetails: function(e) {
     e.preventDefault();
     var id = this.model.get('id');
-    pageStack.changePage($('#recordings-show'), '/recordings/' + id.replace('_', '/'), 'push', false);
+    pageStack.changePage($('#recordings-show'), '/recordings/' + id.replace('_', '/'), { animation: 'push' });
   },
 
   _delete: function(id, options) {

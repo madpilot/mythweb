@@ -21,11 +21,11 @@
 }
 
 .push.out.reverse {
-  -webkit-animation-name: out-to-right;
+  -webkit-animation-name: in-from-left;
 }
 
 .push.in.reverse {
-  -webkit-animation-name: in-from-left;
+  -webkit-animation-name: out-to-right;
 }
 
 .slide.out {

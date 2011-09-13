@@ -11,21 +11,28 @@ var RecordingsRouter = Backbone.Router.extend({
       return model.get('recstartts').getTime() * -1;
     }
     var context = this;
-    
-    recordings.fetch({
-      success: function(collection) {
-        context.lastFetch = collection;
 
-        var recordingsView = new RecordingsView({
-          el: '#recordings-index section',
-          collection: collection
-        });
-        recordingsView.render();
-      },
-      error: function(error) {
-        alert(error);
-      }
-    });
+    var setView = function() {
+    }
+
+    // If we have already fetched the recordings, the view would already have been rendered, so we can take no action.
+    // We'll work out how to update the list (hopefully by pushing) later.
+    if(this.lastFetch === null) {
+      recordings.fetch({
+        success: function(collection) {
+          context.lastFetch = collection;
+
+          var recordingsView = new RecordingsView({
+            el: '#recordings-index section',
+            collection: context.lastFetch
+          });
+          recordingsView.render();
+        },
+        error: function(error) {
+          alert(error);
+        }
+      });
+    }
   },
 
   show: function(chanid, timestamp) {

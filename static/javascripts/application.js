@@ -10,56 +10,91 @@ var PageStack = function() {
     $(el).find(stackSelector + ".current").removeClass('current');
     var to = $(el).find(stackSelector).get(0);
     history = [];
-    changePage(to, url, 'show', false);
+    changePage(to, url);
   }
 
-  var transition = function(toPage, fromPage, type, reverse) {
+  var transition = function(toPage, fromPage, options) {
+    var options = $.extend({ 
+      direction: 'forward',
+      animation: 'show',
+      onComplete: function() {}
+    }, options);
+
     var fromPage = $(fromPage),
     toPage = $(toPage),
-    reverse = reverse ? " reverse" : "";
+    toClass = options.animation + (options.direction == "forward" ? " in forward" : " out reverse"),
+    fromClass = options.animation + (options.direction == "forward" ? " out forward" : " in reverse");
 
     if(!("WebKitTransitionEvent" in window)) {
       toPage.addClass("current");
       fromPage.removeClass("current");
+      options.onComplete.call(toPage);
       return;
     }
-  
+ 
+    console.log(options.animation + " in " + options.direction);
     toPage
       .css('z-index', 10)
-      .addClass(type + " in" + reverse)
+      .addClass(toClass)
       .bind("webkitAnimationEnd", function() {
-        fromPage.removeClass("current");
         
         toPage
           .addClass('current')
-          .removeClass(type + " in" + reverse)
+          .removeClass(toClass)
+          .css('z-index', 'auto')
+          .unbind("webkitAnimationEnd");
+
+        options.onComplete.call(toPage);
+      });
+    
+    fromPage
+      .css('z-index', 10)
+      .addClass(fromClass)
+      .bind("webkitAnimationEnd", function() {
+        fromPage
+          .removeClass("current")
+          .removeClass(fromClass)
           .css('z-index', 'auto')
           .unbind("webkitAnimationEnd");
       });
   }  
 
-  var changePage = function(page, url, type, reverse) {
+  var changePage = function(page, url, options) {
     var page = $(page);
     
     window.History.pushState({
       id: page.attr('id'),
-      current: history.length
+      current: history.length,
     }, 'MythTV', url);
-    
+
+    if(history.length > 0) {
+      history[history.length - 1].previousScrollPosition = $(window).scrollTop();
+    }
+
     history.push({
       page: page,
-      url: url
+      url: url,
+      previousScrollPosition: 0
     });
    
     Backbone.history.loadUrl(url);
-    transition(page, $('.stack.current .page.current'), type, reverse); 
+    $(window).scrollTop(0);
+    transition(page, $('.stack.current .page.current'), options); 
   }
 
-  var back = function(type) {
+  var back = function(options) {
     if(history.length > 0) {
       var from = history.pop();
       var to = history[history.length - 1];
-      transition(to.page, from.page, type, true);
+      
+      var options = $.extend({
+        direction: 'reverse',
+        onComplete: function() {
+          $(window).scrollTop(to.previousScrollPosition);
+        }
+      }, options);
+      
+      transition(to.page, from.page, options);
     }
   }
 
@@ -88,7 +123,9 @@ $(function() {
     var state = History.getState();
     
     if(state.data.current < pageStack.getCurrent()) {
-      pageStack.back('slide');
+      pageStack.back({ 
+        animation: 'push'
+      });
     }
   });
  
