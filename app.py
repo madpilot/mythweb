@@ -42,7 +42,7 @@ def recordings():
   return jsonpickle.encode(filter(lambda p: p.recgroup != "LiveTV", mythtv_backend.getRecordings()), unpicklable=False)
 
 # Channels
-@app.route('/channel/<chanid>/image.jpg')
+@app.route('/channel/<chanid>/image.png')
 def channel_image(chanid):
   height = request.args['height']
   width = request.args['width']
@@ -71,17 +71,13 @@ def programs_image(chanid, airdate):
 
   base = chanid + '_' + airdate
   dest = cache_dir
-  dest_file = base + '.jpg'
   dest_file_resized = base + '-' + width + 'x' + height + '.jpg'
 
-  if os.path.exists(dest + '/' + dest_file) == False:
-    f = open(dest + '/' + dest_file, 'w')
+  if os.path.exists(dest + '/' + dest_file_resized) == False:
+    f = open(dest + '/' + dest_file_resized, 'w')
     f.write(mythtv_xml.getPreviewImage(chanid=int(chanid),starttime=airdate,width=width,height=height,secsin=60))
     f.close()
 
-  if os.path.exists(dest + '/' + dest_file_resized) == False:
-    os.system('convert ' + dest + '/' + dest_file + ' -resize ' + width + 'x' + height + ' ' + dest + '/' + dest_file_resized)
-  
   return send_from_directory(dest, dest_file_resized, as_attachment=False) 
 
 @app.route('/programs/<chanid>/<airdate>/play.json', methods=['POST'])

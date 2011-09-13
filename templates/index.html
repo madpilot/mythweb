@@ -11,8 +11,8 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     
-    <link rel="apple-touch-icon" sizes="57x57" href="/static/images/mobile/apple-touch-icon-57x57.png"/>
-    <link rel="apple-touch-icon" sizes="114x114" href="/static/images/mobile/apple-touch-icon-114x114.png"/>
+    <link rel="apple-touch-icon" size="57x57" href="/static/images/mobile/apple-touch-icon-57x57.png"/>
+    <link rel="apple-touch-icon" size="114x114" href="/static/images/mobile/apple-touch-icon-114x114.png"/>
     <link rel="apple-touch-icon" href="/static/images/mobie/apple-touch-icon.png">
 
     <script type="text/javascript" src="/static/javascripts/modernizr.js"></script>
@@ -71,39 +71,6 @@
     </div>
 
     <!-- Templates -->
-    <script type="text/x-jquery-tmpl" id="mobile-recordings-template">
-      {{each(datestr, group) $data}}
-        <h2>${datestr}</h2>
-        <ul>
-          {{each group}}
-            <li id="${id}">>
-              <div class="options">
-                <a href="#delete">Delete</a> 
-                <a href="#delete-rerecord">Delete and Re-record</a> 
-                <a href="#play">Play</a> 
-                <a href="#autoexpire">Auto Expire</a>
-              </div>
-              <div class="details">
-                <h2>${title}</h2>
-                <img src="/programs/${id.replace('_', '/')}/image.jpg?width=88&amp;height=50" alt="" width="88" height="50">
-                <p>
-                  {{if subtitle}}
-                    ${subtitle}:
-                  {{/if}}
-                  ${description}
-                </p>
-                <div class="meta">
-                  <span class="channel">${channame}</span>
-                  |
-                  <span class="time">${Math.round((recendts.getTime() - recstartts.getTime()) / 60000)} mins</span>
-                </div>
-              </div>
-            </li>
-          {{/each}}
-        </ul>
-      {{/each}}
-    </script>
-
     <script type="text/x-jquery-tmpl" id="mobile-recording-item-template">
       <div class="options">
         <a href="#delete">Delete</a> 

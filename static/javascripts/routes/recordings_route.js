@@ -1,11 +1,10 @@
 var RecordingsRouter = Backbone.Router.extend({
+  lastFetch: null,
   routes: {
     "/recordings": "index",
     "/recordings/:chanid/:timestamp": "show"
   },
 
-  _lastCollection: null,
-      
   index: function() {
     var recordings = new Recordings();
     recordings.comparator = function(model) {
@@ -15,6 +14,8 @@ var RecordingsRouter = Backbone.Router.extend({
     
     recordings.fetch({
       success: function(collection) {
+        context.lastFetch = collection;
+
         var recordingsView = new RecordingsView({
           el: '#recordings-index section',
           collection: collection
@@ -28,12 +29,17 @@ var RecordingsRouter = Backbone.Router.extend({
   },
 
   show: function(chanid, timestamp) {
-    var recording = this._lastCollection[chanid + '_' + timestamp];  
+    console.log(this.lastFetch);
+
+    if(this.lastFetch === null) {
+
+    }
+    var model = this.lastFetch.get(chanid + "_" + timestamp);
     var recordingView = new RecordingView({
       el: '#recordings-show section',
-      template: $('#mobile-recording-template')
+      model: model
     });
-    recordingView.render(recording);
+    recordingView.render();
   }
 });
 var recordingsRouter = new RecordingsRouter();

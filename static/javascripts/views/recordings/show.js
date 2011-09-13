@@ -1,9 +1,10 @@
 var RecordingView = Backbone.View.extend({
-  events: {},
+  tagName: 'div',
+  template: '#mobile-recording-template',
 
-  render: function(recording) {
+  render: function() {
     $(this.el).children().remove();
-    $(this.el).parents('div.page').find('header h1').text(recording.title);
-    $(this.options.template).tmpl(recording).appendTo($(this.el));
+    $(this.el).parents('div.page').find('header h1').text(this.model.get('title'));
+    $(this.template).tmpl(this.model.toJSON()).appendTo($(this.el));
   }
 });
