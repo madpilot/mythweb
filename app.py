@@ -41,6 +41,16 @@ search_for_frontends()
 def recordings():
   return jsonpickle.encode(filter(lambda p: p.recgroup != "LiveTV", mythtv_backend.getRecordings()), unpicklable=False)
 
+@app.route('/recordings/<chanid>/<airdate>.json', methods=['DELETE'])
+def recordings_delete(chanid, airdate):
+  rerecord = False
+  if request.args.has_key('rerecord'):
+    rerecord = True if request.args['rerecord'] == 'true' else 'false'
+  
+  recording = mythtv_backend.getRecording(chanid, airdate)
+  recording.delete(force=False,rerecord=rerecord)
+  return ''
+
 # Channels
 @app.route('/channel/<chanid>/image.png')
 def channel_image(chanid):
@@ -84,15 +94,6 @@ def programs_image(chanid, airdate):
 def programs_play(chanid, airdate):
   recording = mythtv_backend.getRecording(chanid, airdate)
   mythtv_frontends[0].play(recording)
-  return ''
-
-@app.route('/programs/<chanid>/<airdate>.json', methods=['DELETE'])
-def programs_delete(chanid, airdate):
-  rerecord = False
-  if request.args.has_key('rerecord'):
-    rerecord = True if request.args['rerecord'] == 'true' else 'false'
-  recording = mythtv_backend.getRecording(chanid, airdate)
-  recording.delete(force=False,rerecord=rerecord)
   return ''
 
 # Frontends

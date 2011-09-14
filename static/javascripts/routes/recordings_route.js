@@ -23,7 +23,7 @@ var RecordingsRouter = Backbone.Router.extend({
           context.lastFetch = collection;
 
           var recordingsView = new RecordingsView({
-            el: '#recordings-index section',
+            el: '#recordings-index',
             collection: context.lastFetch
           });
           recordingsView.render();
@@ -49,7 +49,7 @@ var RecordingsRouter = Backbone.Router.extend({
     
     var model = this.lastFetch.get(chanid + "_" + timestamp);
     var recordingView = new RecordingView({
-      el: '#recordings-show section',
+      el: '#recordings-show',
       model: model
     });
     recordingView.render();

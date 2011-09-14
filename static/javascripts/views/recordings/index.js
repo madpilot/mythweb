@@ -1,11 +1,21 @@
 var RecordingViewItem = Backbone.View.extend({
+  initialize: function() {
+    var context = this;
+    this.model.bind('destroy', function(e) {
+      $(context.el).slideUp('fast', function() {
+        $(this).remove();
+      });
+    });
+  },
+
   tagName: 'li',
   template: '#mobile-recording-item-template',
   events: {
     'click div.details': 'showDetails',
     'click a[href=#play]': 'play',
     'click a[href=#delete]': 'del',
-    'click a[href=#delete-rerecord]': 'delAndReRecord'
+    'click a[href=#delete-rerecord]': 'delAndReRecord',
+    'click a[href=#autoexpire]': 'autoexpire'
   },
 
   _swipeLeft: function(li) {
@@ -65,45 +75,34 @@ var RecordingViewItem = Backbone.View.extend({
     pageStack.changePage($('#recordings-show'), '/recordings/' + id.replace('_', '/'), { animation: 'push' });
   },
 
-  _delete: function(id, options) {
-    options = _.extend({ rerecord: false }, options);
-    var rerecord = options.rerecord
-
-    $.ajax({
-      url: '/programs/' + id.replace('_', '/') + '.json?' + 'rerecord=' + (rerecord ? 'true' : 'false'),
-      type: 'delete',
-      success: function(data) {
-        $('#' + id).remove();
-      }
-    });
-  },
-
   play: function(e) {
-    var id = $(e.target).parents('li').attr('id');
-    $.ajax({
-      url: '/programs/' + id.replace('_', '/') + '/play.json',
-      type: 'post'
-    });
+    e.stopPropagation();
+    e.preventDefault();
+    this.model.play();
   },
 
   del: function(e) {
     e.stopPropagation();
+    e.preventDefault();
+    
     if(confirm("Are you sure you want to delete this recording?")) {
-      var id = $(e.target).parents('li').attr('id');
-      this._delete(id, {
-        rerecord: false
-      });
+      this.model.destroy({ rerecord: false });
     }
   },
 
   delAndReRecord: function(e) {
     e.stopPropagation();
+    e.preventDefault();
+    
     if(confirm("Are you sure you want to delete and re-record this recording?")) {
-      var id = $(e.target).parents('li').attr('id');
-      this._delete(id, {
-        rerecord: true
-      });
+      this.model.destroy({ rerecord: true });
     }
+  },
+
+  autoexpire: function(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    this.model.toggleAutoexpire();
   },
 
   render: function() {
@@ -121,7 +120,7 @@ var RecordingsView = Backbone.View.extend({
   tagName: 'ul',
 
   render: function() {
-    $(this.el).find('li').unbind('swipe').children().remove();
+    $(this.el).find("section li").unbind('swipe').children().remove();
 
     function dateString(d) {
       var today = (new Date()).getTime();
@@ -145,15 +144,15 @@ var RecordingsView = Backbone.View.extend({
     var last = null;
     var ul = null;
     
-    $(this.el).children().remove();
+    $(this.el).find("section").children().remove();
     this.collection.each(function(recording) {
       var date = dateString(recording.get('recstartts'));
 
       if(date != last) {
         if(ul != null) {
-          $(context.el).append(ul);
+          $(context.el).find("section").append(ul);
         }
-        $(context.el).append('<h2>' + date + '</h2>');
+        $(context.el).find("section").append('<h2>' + date + '</h2>');
         ul = $('<ul></ul>');
         last = date;
       }
