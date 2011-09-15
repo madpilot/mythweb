@@ -20,10 +20,11 @@
     <script type="text/javascript" src="/static/javascripts/history.adapter.jquery.min.js"></script>
     <script type="text/javascript" src="/static/javascripts/history.min.js"></script>
     <script type="text/javascript" src="/static/javascripts/jquery.tmpl.min.js"></script>
+    <script type="text/javascript" src="/static/javascripts/jquery.i18n.min.js"></script>
     <script type="text/javascript" src="/static/javascripts/jquery.swipeable.js"></script>
     <script type="text/javascript" src="/static/javascripts/underscore.min.js"></script>
     <script type="text/javascript" src="/static/javascripts/backbone.min.js"></script>
-    <script typt="text/javascript" src="/static/javascripts/utilities.js"></script>
+    <script type="text/javascript" src="/static/javascripts/utilities.js"></script>
 
     <script type="text/javascript" src="/static/javascripts/routes/remote_route.js"></script>
     <script type="text/javascript" src="/static/javascripts/routes/recordings_route.js"></script>
@@ -34,15 +35,16 @@
 
     <script type="text/javascript" src="/static/javascripts/views/recordings/index.js"></script>
     <script type="text/javascript" src="/static/javascripts/views/recordings/show.js"></script>
+    <script type="text/javascript" src="/dynamic/javascripts/language.js"></script>
     
     <script type="text/javascript" src="/static/javascripts/application.js"></script>
   </head>
   <body>
     <div id="pull-down">
       <ul>
-        <li><a href="/remote" rel="#remote">Remote</a></li>
-        <li><a href="/recordings" rel="#recordings">Recordings</a></li>
-        <li><a href="/listings" rel="#listings">Listings</a></li>
+        <li><a href="/remote" rel="#remote" data-i18n-key="remote" lang="en">Remote</a></li>
+        <li><a href="/recordings" rel="#recordings" data-i18n-key="recordings" lang="en">Recordings</a></li>
+        <li><a href="/listings" rel="#listings" data-i18n-key="listings" lang="en">Listings</a></li>
       </ul>
     </div>
 
@@ -50,13 +52,13 @@
     <div id="recordings" class="stack">
       <div id="recordings-index" class="page">
         <header>
-          <h1>Recordings</h1>
+          <h1 data-i18n-key="recordings" lang="en">Recordings</h1>
         </header>
         <section></section>
       </div>
       <div id="recordings-show" class="page">
         <header>
-          <h1>Recording</h1>
+          <h1 data-i18n-key="recording" lang="en">Recording</h1>
         </header>
         <section></section>
       </div>
@@ -64,7 +66,7 @@
     <div id="remote" class="stack">
       <div id="remote-index" class="page">
         <header>
-          <h1>Remote</h1>
+          <h1 data-i18n-key="remote" lang="en">Remote</h1>
         </header>
         <section></section>
       </div>
@@ -73,10 +75,10 @@
     <!-- Templates -->
     <script type="text/x-jquery-tmpl" id="mobile-recording-item-template">
       <div class="options">
-        <a href="#delete">Delete</a> 
-        <a href="#delete-rerecord">Delete and Re-record</a> 
-        <a href="#play">Play</a> 
-        <a href="#autoexpire">Auto Expire</a>
+        <a href="#delete" data-i18n-key="delete" lang="en">Delete</a> 
+        <a href="#delete-rerecord" data-i18n-key="delete_and_rerecord" lang="en">Delete and Re-record</a> 
+        <a href="#play" data-i18n-key="play" lang="en">Play</a> 
+        <a href="#autoexpire" data-i18n-key="autoexpire" lang="en">Auto Expire</a>
       </div>
       <div class="details">
         <h2>${title}</h2>
@@ -113,15 +115,15 @@
         <table>
           <tbody>
             <tr>
-              <th>File Size</th>
+              <th>${$.i18n._('file_size')}</th>
               <td>${human_size(filesize, 2)}</td>
             </tr>
             <tr>
-              <th>Playback Group</th>
+              <th>${$.i18n._('playback_group')}</th>
               <td>${playgroup}</td>
             </tr>
             <tr>
-              <th>Storage Group</th>
+              <th>${$.i18n._('storage_group')}</th>
               <td>${storagegroup}</td>
             </tr>
           </tbody>
@@ -129,34 +131,34 @@
      </div>
       <div class="meta">
         <div class="options">
-          <a href="#delete">Delete</a> 
-          <a href="#delete-rerecord">Delete and Re-record</a> 
-          <a href="#play">Play</a> 
-          <a href="#autoexpire">Auto Expire</a>
+          <a href="#delete">${$.i18n._('delete')}</a> 
+          <a href="#delete-rerecord">${$.i18n._('delete_and_rerecord')}</a> 
+          <a href="#play">${$.i18n._('play')}</a> 
+          <a href="#autoexpire">${$.i18n._('auto_expire')}</a>
        </div>
      </div>
     </script>
 
     <script type="text/x-jquery-tmpl" id="mobile-remote-template">
       <div id="remote-default" class="panel keyboard">
-        <a href="#enter">Ok</a>
-        <a href="#escape">Esc</a>
-        <a href="#m">Menu</a>
-        <a href="#i">Info</a>
+        <a href="#enter">${$.i18n._('remote:ok')}</a>
+        <a href="#escape">${$.i18n._('remote:escape')}</a>
+        <a href="#m">${$.i18n._('remote:menu')}</a>
+        <a href="#i">${$.i18n._('remote:information')}</a>
 
-        <a href="#up">Up</a>
-        <a href="#right">Right</a>
-        <a href="#down">Down</a>
-        <a href="#left">Left</a>
+        <a href="#up">${$.i18n._('remote:up')}</a>
+        <a href="#right">${$.i18n._('remote:right')}</a>
+        <a href="#down">${$.i18n._('remote:down')}</a>
+        <a href="#left">${$.i18n._('remote:left')}</a>
 
-        <a href="#[">Vol-</a>
-        <a href="#]">Vol+</a>
-        <a href="#f9">Mute</a>
+        <a href="#[">${$.i18n._('remote:volume')}-</a>
+        <a href="#]">${$.i18n._('remote:volume')}+</a>
+        <a href="#f9">${$.i18n._('remote:mute')}</a>
 
-        <a href="#p">Play</a>
-        <a href="#r">Rec</a>
-        <a href="#pagedown">Rew</a>
-        <a href="#pageup">Fwd</a>
+        <a href="#p">${$.i18n._('remote:play')}</a>
+        <a href="#r">${$.i18n._('remote:record')}</a>
+        <a href="#pagedown">${$.i18n._('remote:rewind')}</a>
+        <a href="#pageup">${$.i18n._('remote:fast_forward')}</a>
 
         <a href="#1">1</a>
         <a href="#2">2</a>

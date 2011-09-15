@@ -117,7 +117,20 @@ var PageStack = function() {
 
 var pageStack = PageStack();
 
+(function($) {
+  $.fn._t = function(str, params) {
+    return $(this).text($.i18n._(str, params));
+  };
+})(jQuery);
+
 $(function() {
+  // Apply the translations
+  $('html').attr('lang', $.i18n.locale);
+  console.log($('[data-i18n-key]'));
+  $('[data-i18n-key]').each(function(i, e) {
+    $(e)._t($(e).attr('data-i18n-key')).attr('lang', $.i18n.locale);
+  });
+  
   window.History.Adapter.bind(window, 'statechange', function(e) {
     var state = History.getState();
     

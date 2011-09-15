@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, render_template, request, send_from_directory
+from flask import Flask, jsonify, render_template, request, send_from_directory, redirect
 import ConfigParser, MythTV, threading, jsonpickle, os, os.path
 
 config = ConfigParser.RawConfigParser()
@@ -107,6 +107,13 @@ def frontends():
 def keyboard(index):
   mythtv_frontends[int(index) - 1].key[request.form['key']]
   return ''
+
+# Dynamic javascript files
+@app.route('/dynamic/javascripts/language.js')
+def javascript_language():
+  # Work out the backend language and feed the correct translation file in
+  # At the moment, just return English until I work out HOW to do that :)
+  return redirect('/static/javascripts/locales/en.js')
 
 # We are going to user popstate to handle URLs, so if it doesn't exist, then actually serve up the index.html page
 @app.errorhandler(404)
