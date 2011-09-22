@@ -99,7 +99,7 @@ def programs_play(chanid, airdate):
 # Frontends
 @app.route('/frontends.json')
 def frontends():
-  return jsonpickle.encode(map(lambda f: f.host, mythtv_frontends), unpicklable=False)
+  return jsonpickle.encode(map(lambda f: { 'host': f.host }, mythtv_frontends), unpicklable=False)
 
 
 #Keyboards

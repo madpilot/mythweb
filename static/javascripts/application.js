@@ -123,10 +123,12 @@ var pageStack = PageStack();
   };
 })(jQuery);
 
+window.frontends = new Frontends();
+window.frontends.fetch();
+
 $(function() {
   // Apply the translations
   $('html').attr('lang', $.i18n.locale);
-  console.log($('[data-i18n-key]'));
   $('[data-i18n-key]').each(function(i, e) {
     $(e)._t($(e).attr('data-i18n-key')).attr('lang', $.i18n.locale);
   });

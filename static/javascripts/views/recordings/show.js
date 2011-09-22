@@ -29,7 +29,6 @@ var RecordingView = Backbone.View.extend({
     e.stopPropagation();
     e.preventDefault();
    
-    console.log(this);
     if(confirm("Are you sure you want to delete this recording?")) {
       this.model.destroy({ rerecord: false });
     }
